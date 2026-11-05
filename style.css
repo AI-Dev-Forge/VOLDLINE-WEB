@@ -3122,6 +3122,11 @@ h2 em {
   margin: 0;
 }
 
+.history-main-title em {
+  font-style: normal;
+  color: #D3FE41;
+}
+
 .history-list-container {
   display: flex;
   flex-direction: column;

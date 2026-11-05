@@ -1088,7 +1088,7 @@ if (espCanvas) {
   const statusMsg = document.getElementById('cs2StatusMessage');
   const statusTag = document.getElementById('cs2StatusTag');
 
-  // ඔබේ GitHub Repo එකෙහි 'username/repository-name' ලබා දෙන්න
+  // Provide your GitHub Repo in the format 'username/repository-name'
   const repoOwnerAndName = "AI-Dev-Forge/VOLDLINE";
 
   async function fetchGitHubReleases() {
@@ -1129,10 +1129,10 @@ if (espCanvas) {
         // CS2 Status Banner Check
         if (statusMsg && releases.length > 0) {
           if (releases[0].body && releases[0].body.includes("CS2_OUTDATED")) {
-            statusMsg.innerText = "CS2 Game එක සඳහා නව Update එකක් නිකුත් වී ඇත. එම Game Update එකට ගැළපෙන පරිදි Software එක තවමත් සංවර්ධනය කරමින් පවතී.";
+            statusMsg.innerText = "A new CS2 game update has been detected. Software update is currently in progress to match this patch.";
             if (statusTag) statusTag.style.color = "#ff5b49";
           } else {
-            statusMsg.innerText = "නවතම CS2 Game Update එක සමඟ Software එක දැන් සම්පූර්ණයෙන්ම අනුකූල වේ.";
+            statusMsg.innerText = "Software is currently fully compatible with the latest CS2 game update.";
             if (statusTag) statusTag.style.color = "var(--acid)";
           }
         }
@@ -1228,7 +1228,7 @@ if (espCanvas) {
   const compatText = document.getElementById('compatText');
   const compatibilityCard = document.getElementById('compatibilityCard');
 
-  // ඔබගේ GitHub Raw URL එක මෙහි ලබා දෙන්න (උදා: your-username/repository/main/compatibility.json)
+  // Provide your GitHub Raw URL here (e.g., your-username/repository/main/compatibility.json)
   const jsonUrl = "https://raw.githubusercontent.com/AI-Dev-Forge/VOLDLINE-WEB/refs/heads/main/compatibility.json";
 
   async function checkCompatibility() {
@@ -1253,7 +1253,7 @@ if (espCanvas) {
         }
         if (compatibilityCard) compatibilityCard.style.borderColor = "rgba(16, 185, 129, 0.35)";
         if (compatIcon) compatIcon.innerHTML = "✅";
-        if (compatText) compatText.innerText = "Software එක නවතම CS2 Update එක සමඟ අනුකූල වේ.";
+        if (compatText) compatText.innerText = "Software is fully compatible with the latest CS2 update.";
       } else {
         // Yellow/Orange Updating Status (Matching user image reference)
         if (compatBadgePill) {
@@ -1262,7 +1262,7 @@ if (espCanvas) {
         }
         if (compatibilityCard) compatibilityCard.style.borderColor = "rgba(245, 158, 11, 0.35)";
         if (compatIcon) compatIcon.innerHTML = "⚠️";
-        if (compatText) compatText.innerText = "නවතම CS2 Update එක සඳහා Software එක තවමත් Update කරමින් පවතී.";
+        if (compatText) compatText.innerText = "Software update is currently in progress for the latest CS2 patch.";
       }
 
     } catch (error) {
