@@ -1217,7 +1217,7 @@ if (espCanvas) {
 })();
 
 // -------------------------------------------------------------
-// CS2 Build & Software Compatibility Checker Engine (Optimized)
+// CS2 Build & Software Compatibility Checker Engine
 // -------------------------------------------------------------
 (function initStatusDashboard() {
   const latestBuildEl = document.getElementById('cs2LatestBuild');
@@ -1228,30 +1228,25 @@ if (espCanvas) {
   const compatText = document.getElementById('compatText');
   const compatibilityCard = document.getElementById('compatibilityCard');
 
+  // ඔබගේ GitHub Raw URL එක මෙහි ලබා දෙන්න (උදා: your-username/repository/main/compatibility.json)
   const jsonUrl = "https://raw.githubusercontent.com/AI-Dev-Forge/VOLDLINE-WEB/refs/heads/main/compatibility.json";
 
   async function checkCompatibility() {
     try {
-      // 1. Cache Bypass කිරීම සඳහා Unique Query Parameter එකක් සහ No-Cache headers එකතු කිරීම
-      const response = await fetch(jsonUrl + "?v=" + new Date().getTime(), {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache, no-transform'
-        }
-      });
-
+      const response = await fetch(jsonUrl + "?t=" + Date.now()); // Prevent caching
       if (!response.ok) throw new Error('Failed to fetch status metadata');
 
       const data = await response.json();
 
-      // 2. CS2 Game Status Card යාවත්කාලීන කිරීම
+      // 1. Update CS2 Game Status Card
       if (latestBuildEl) latestBuildEl.innerText = data.latest_cs2_build;
       if (releaseDateEl) releaseDateEl.innerText = data.release_date;
 
-      // 3. Build IDs සංසන්දනය කිරීම
+      // 2. Compare Build IDs for Compatibility
       const isCompatible = data.latest_cs2_build === data.supported_software_build;
 
       if (isCompatible) {
+        // Green Compatible Status
         if (compatBadgePill) {
           compatBadgePill.innerText = "Compatible";
           compatBadgePill.className = "status-pill badge-compatible";
@@ -1260,6 +1255,7 @@ if (espCanvas) {
         if (compatIcon) compatIcon.innerHTML = "✅";
         if (compatText) compatText.innerText = "Software එක නවතම CS2 Update එක සමඟ අනුකූල වේ.";
       } else {
+        // Yellow/Orange Updating Status (Matching user image reference)
         if (compatBadgePill) {
           compatBadgePill.innerText = "Updating";
           compatBadgePill.className = "status-pill badge-updating";
@@ -1276,9 +1272,5 @@ if (espCanvas) {
     }
   }
 
-  // පිටුව Load වූ වහාම ක්‍රියාත්මක වීම
   checkCompatibility();
-
-  // (අත්‍යවශ්‍ය නම්) Tab එක Active වන විට හෝ සෑම විනාඩි 5කට වරක් ස්වයංක්‍රීයව පසුබිමින් පරීක්ෂා කිරීම
-  setInterval(checkCompatibility, 300000);
 })();
