@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10110f">
+    <meta name="description" content="VOIDLINE — Full Version History and Software Release Logs.">
+    <title>VOIDLINE — Version History & Release Logs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <!-- Header / Topbar -->
+    <header class="topbar">
+        <a class="brand" href="index.html#top" aria-label="VOIDLINE home">
+            <span class="brand-mark"><i></i><i></i><i></i><i></i></span>
+            <span>VOID<span class="brand-light">LINE</span><small>FIELD SYSTEMS / 001</small></span>
+        </a>
+        <nav class="nav">
+            <a href="index.html#system">SYSTEM</a>
+            <a href="index.html#architecture">SPECS</a>
+            <a href="index.html#simulator">SIMULATOR</a>
+            <a href="index.html#protocol">PROTOCOL</a>
+            <a href="index.html#release">RELEASE</a>
+        </nav>
+        <a class="nav-cta magnetic" href="index.html#release">GET THE BUILD <span>↗</span></a>
+        <button class="menu-toggle" aria-label="Toggle navigation"><span></span><span></span></button>
+    </header>
+
+    <main id="top">
+        <!-- Version History Hero Header Section -->
+        <section class="section-pad history-hero">
+            <div class="section-heading reveal visible">
+                <div>
+                    <a href="index.html#protocol" class="back-link mono">← BACK TO HOMEPAGE</a>
+                    <h1 class="history-main-title">FULL VERSION<br><em>HISTORY LOGS.</em></h1>
+                </div>
+                <p class="section-intro">Complete release history automatically synchronized with the GitHub repository.
+                    Real-time changelogs, feature additions, bug fixes, and compatibility markers.</p>
+            </div>
+
+            <!-- Live Sync Telemetry Banner -->
+            <div class="cs2-status-banner reveal visible" style="margin-bottom: 40px;">
+                <div class="status-icon-box">
+                    <span class="live-dot"></span>
+                </div>
+                <div class="status-content">
+                    <span class="status-tag mono">GITHUB AUTO-SYNC // ONLINE</span>
+                    <p class="status-text">All releases are fetched directly from GitHub Releases API in real-time. No
+                        manual maintenance required.</p>
+                </div>
+            </div>
+
+            <!-- All Version Cards Container -->
+            <div id="allVersionsContainer" class="history-list-container">
+                <!-- Loading Placeholder -->
+                <div class="history-card reveal visible">
+                    <div class="history-card-header mono">
+                        <span class="version-tag">LOADING...</span>
+                        <span class="release-date">SYNCING WITH GITHUB</span>
+                    </div>
+                    <div class="history-card-body">
+                        <h3>Fetching release history...</h3>
+                        <p>Please wait while we fetch all software updates from the repository.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a class="brand" href="index.html#top">
+            <span class="brand-mark"><i></i><i></i><i></i><i></i></span>
+            <span>VOID<span class="brand-light">LINE</span><small>FIELD SYSTEMS / 001</small></span>
+        </a>
+        <p class="mono">INDEPENDENT PROJECT · NOT AFFILIATED WITH VALVE</p>
+        <div class="footer-right mono">
+            <span>© 2026 VOIDLINE</span>
+            <a href="#top">RETURN ↑</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="VOIDLINE — a precision-built companion for Counter-Strike players.">
+  <title>VOIDLINE — Tactical Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="VOIDLINE home">
+      <span class="brand-mark"><i></i><i></i><i></i><i></i></span>
+      <span>VOID<span class="brand-light">LINE</span><small>FIELD SYSTEMS / 001</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#system">SYSTEM</a>
+      <a href="#architecture">SPECS</a>
+      <a href="#simulator">SIMULATOR</a>
+      <a href="#protocol">PROTOCOL</a>
+      <a href="#release">RELEASE</a>
+    </nav>
+    <a class="nav-cta magnetic" href="#release">GET THE BUILD <span>↗</span></a>
+    <button class="menu-toggle" aria-label="Toggle navigation"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-meta mono reveal"><span><b class="live-dot"></b> SYSTEM ONLINE</span><span>BUILD 1.0.2 /
+          PREVIEW</span><span>26° 55' N — MATCH READY</span></div>
+
+      <div class="hero-copy">
+        <p class="eyebrow reveal"><span class="eyebrow-line"></span> THE PLAYER IS THE VARIABLE</p>
+        <h1 class="hero-title reveal"><span>READ</span><span class="title-second">THE <em>ROUND.</em></span></h1>
+        <div class="hero-bottom reveal">
+          <p class="hero-description">A stripped-back tactical companion for players who take the details seriously.
+            Built for focus, clean sessions, and better practice.</p>
+          <a href="#system" class="round-link" aria-label="Explore the system"><span>EXPLORE<br>THE
+              SYSTEM</span><b>↓</b></a>
+        </div>
+      </div>
+
+      <!-- 3D Tactical CS2 Dust II Interactive Isometric Map -->
+      <div class="hero-art map-isometric-container" id="hero-map-widget" aria-label="CS2 Dust II Tactical Overview Map">
+        <!-- Top Tech Metadata -->
+        <div class="map-hud-top mono">
+          <span class="map-stat-blips"><b class="live-dot-yellow"></b> FIG. 01 // <strong class="blip-count-num"
+              id="blip-count-num">7</strong> BLIPS ACTIVE</span>
+          <span class="map-stat-interact">CLICK TO PING / DRAG BLIPS</span>
+        </div>
+
+        <!-- 3D Isometric Canvas Viewport -->
+        <div class="isometric-viewport">
+          <canvas id="map-3d-canvas" class="map-canvas"></canvas>
+          <div id="map-html-labels" class="map-labels-layer"></div>
+        </div>
+
+        <!-- Bottom Tech Telemetry & Coordinates -->
+        <div class="map-hud-bottom mono">
+          <div class="map-hud-stat-box">
+            <span class="hud-tag">LATENCY</span>
+            <span class="hud-val">SYNC [<strong class="sync-ms" id="sync-val">0.8ms</strong>]</span>
+            <span class="hud-bars"><i></i><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="map-hud-coords">
+            <div>X: <span id="coord-x">80.65</span></div>
+            <div>Y: <span id="coord-y">81.92</span></div>
+            <div>Z: <span id="coord-z">008.4</span></div>
+          </div>
+        </div>
+
+        <!-- Watermark / Technical Stamp -->
+        <div class="map-zoom-tip mono">DUST II // OVERVIEW <span>—</span> VOL. 01</div>
+      </div>
+      <div class="vertical-label mono">DESIGNED FOR THE DETAILS <span>—</span> VOL. 01</div>
+      <div class="hero-foot mono"><span>NO NOISE. JUST SIGNAL.</span><span>SCROLL TO DECODE ↓</span></div>
+    </section>
+
+    <section class="ticker" aria-label="Product principles">
+      <div class="ticker-track">
+        <span>PRECISION OVER NOISE <b>✳</b> BUILT FOR FOCUS <b>✳</b> YOUR SESSION, YOUR DATA <b>✳</b> PRACTICE WITH
+          INTENT <b>✳</b></span>
+        <span aria-hidden="true">PRECISION OVER NOISE <b>✳</b> BUILT FOR FOCUS <b>✳</b> YOUR SESSION, YOUR DATA <b>✳</b>
+          PRACTICE WITH INTENT <b>✳</b></span>
+      </div>
+    </section>
+
+    <!-- Interactive ESP Simulator Section -->
+    <section class="simulator-section section-pad" id="simulator">
+      <div class="section-heading reveal">
+        <div>
+          <h2>REAL-TIME<br><em>MODULE OVERLAY.</em></h2>
+        </div>
+        <p class="section-intro">Experience the lightweight perception suite in real time. Configure individual ESP
+          flags, distance scaling, and entity targets live on canvas.</p>
+      </div>
+
+      <div class="sim-wrapper reveal">
+        <!-- Control Toggles Panel -->
+        <aside class="sim-controls">
+          <div class="sim-panel-head">
+            <span class="sim-panel-title">MODULE TOGGLES</span>
+            <span class="sim-panel-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" />
+              </svg>
+            </span>
+          </div>
+
+          <div class="sim-toggles-list mono">
+            <!-- 1. Bounding Box -->
+            <label class="sim-toggle-row" for="toggle-box">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic box-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                </svg>
+                Bounding Box
+              </span>
+              <input type="checkbox" id="toggle-box" checked class="sim-checkbox">
+              <span class="sim-custom-check"></span>
+            </label>
+
+            <!-- 2. Bone Skeleton -->
+            <label class="sim-toggle-row" for="toggle-skeleton">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic skel-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v20M8 7l8 0M6 13l12 0M9 22l3-7 3 7" />
+                </svg>
+                Bone Skeleton
+              </span>
+              <input type="checkbox" id="toggle-skeleton" checked class="sim-checkbox">
+              <span class="sim-custom-check check-cyan"></span>
+            </label>
+
+            <!-- 3. Health & Armor Bar -->
+            <label class="sim-toggle-row" for="toggle-health">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic health-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+                Health & Armor Bar
+              </span>
+              <input type="checkbox" id="toggle-health" checked class="sim-checkbox">
+              <span class="sim-custom-check check-emerald"></span>
+            </label>
+
+            <!-- 4. Target Snaplines -->
+            <label class="sim-toggle-row" for="toggle-snaplines">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic snap-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="19" r="2" />
+                  <circle cx="5" cy="5" r="2" />
+                  <circle cx="19" cy="5" r="2" />
+                  <path d="m12 17-6-10M12 17l6-10" />
+                </svg>
+                Target Snaplines
+              </span>
+              <input type="checkbox" id="toggle-snaplines" checked class="sim-checkbox">
+              <span class="sim-custom-check check-purple"></span>
+            </label>
+
+            <!-- 5. Distance & Weapons -->
+            <label class="sim-toggle-row" for="toggle-info">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic tag-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+                  <circle cx="7" cy="7" r=".5" fill="currentColor" />
+                </svg>
+                Distance & Weapons
+              </span>
+              <input type="checkbox" id="toggle-info" checked class="sim-checkbox">
+              <span class="sim-custom-check check-yellow"></span>
+            </label>
+
+            <!-- 6. Head Hitbox Circle -->
+            <label class="sim-toggle-row" for="toggle-head">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic head-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                Head Hitbox Circle
+              </span>
+              <input type="checkbox" id="toggle-head" checked class="sim-checkbox">
+              <span class="sim-custom-check check-red"></span>
+            </label>
+
+            <!-- 7. Aim Assist / FOV (NEW in v1.0.2) -->
+            <label class="sim-toggle-row" for="toggle-aimbot">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic aim-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                </svg>
+                Aim Assist (FOV Circle)
+              </span>
+              <input type="checkbox" id="toggle-aimbot" checked class="sim-checkbox">
+              <span class="sim-custom-check check-lime"></span>
+            </label>
+
+            <!-- 8. Target Aim Snapline (NEW in v1.0.2) -->
+            <label class="sim-toggle-row" for="toggle-aimline">
+              <span class="sim-toggle-label">
+                <svg class="toggle-ic aimline-ic" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                Target Aim Snapline
+              </span>
+              <input type="checkbox" id="toggle-aimline" checked class="sim-checkbox">
+              <span class="sim-custom-check check-orange"></span>
+            </label>
+          </div>
+
+          <div class="sim-field-group">
+            <label class="sim-field-label mono" for="color-theme-select">ENEMY PALETTE THEME</label>
+            <div class="sim-select-wrap">
+              <select id="color-theme-select" class="sim-select mono">
+                <option value="neon">Cyber Neon Red & Teal</option>
+                <option value="acid">Voidline Acid & Monochrome</option>
+                <option value="classic">Classic Counter-Strike Amber</option>
+                <option value="violet">Tactical Ultra Violet</option>
+              </select>
+              <span class="sim-select-arrow">↓</span>
+            </div>
+          </div>
+
+          <div class="sim-field-group">
+            <div class="sim-slider-head mono">
+              <span>SIMULATED DISTANCE</span>
+              <span id="distance-val" class="sim-slider-val">18 Meters</span>
+            </div>
+            <input type="range" id="distance-slider" min="5" max="50" value="18" class="sim-slider">
+          </div>
+        </aside>
+
+        <!-- Right: Canvas Viewport -->
+        <div class="sim-viewport-card">
+          <canvas id="esp-canvas" class="sim-canvas"></canvas>
+
+          <!-- Top Toolbar -->
+          <div class="sim-viewport-tools mono">
+            <button id="btn-spawn-target" class="sim-btn sim-btn-outline" type="button">
+              <span>+</span> Add Bot Entity
+            </button>
+            <button id="btn-clear-target" class="sim-btn sim-btn-outline" type="button">
+              <span class="btn-rotate">↻</span> Reset Frame
+            </button>
+          </div>
+
+          <!-- Bottom Telemetry HUD Bar -->
+          <div class="sim-viewport-foot mono">
+            <span class="sim-foot-hint">CLICK CANVAS TO MOVE ENTITY</span>
+            <span class="sim-foot-status">FOV: 90° | SENS: 1.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--<section class="system section-pad" id="system">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> 01 / THE SYSTEM</p>
+          <h2>LESS CLUTTER.<br><em>MORE CONTROL.</em></h2>
+        </div>
+        <p class="section-intro">A focused toolkit for the parts of Counter-Strike that happen around the match —
+          review, practice, and performance.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature feature-large reveal">
+          <div class="feature-top mono"><span>MODULE / 001</span><span>01—03</span></div>
+          <div class="feature-visual visual-session">
+            <div class="session-window">
+              <div class="window-head"><span>SESSION / OVERVIEW</span><span class="window-dots">•••</span></div>
+              <div class="session-number">04<span>:</span>27<span class="session-unit">HRS</span></div>
+              <div class="session-chart"><svg viewBox="0 0 420 100" preserveAspectRatio="none">
+                  <path
+                    d="M0 82 L24 75 L46 80 L68 42 L89 55 L111 30 L135 49 L157 20 L180 35 L202 12 L225 40 L248 28 L270 58 L292 39 L314 46 L337 17 L359 31 L382 10 L420 18"
+                    fill="none" stroke="currentColor" stroke-width="2" />
+                  <path
+                    d="M0 82 L24 75 L46 80 L68 42 L89 55 L111 30 L135 49 L157 20 L180 35 L202 12 L225 40 L248 28 L270 58 L292 39 L314 46 L337 17 L359 31 L382 10 L420 18 L420 100 L0 100Z"
+                    fill="currentColor" opacity=".08" />
+                </svg></div>
+              <div class="session-stats"><span>SESSION TIME <b>04:27:18</b></span><span>CAPTURES <b>12 FILES</b></span>
+              </div>
+            </div>
+            <span class="visual-index mono">A—01</span>
+          </div>
+          <div class="feature-copy">
+            <h3>SESSION<br>INTELLIGENCE</h3>
+            <p>Keep your practice history and session details in one clean, readable space.</p><span
+              class="feature-arrow">↗</span>
+          </div>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-top mono"><span>MODULE / 002</span><span>02—03</span></div>
+          <div class="feature-visual visual-capture">
+            <div class="capture-frame"><span class="capture-corner c1"></span><span
+                class="capture-corner c2"></span><span class="capture-corner c3"></span><span
+                class="capture-corner c4"></span>
+              <div class="capture-cross">+</div>
+              <div class="capture-label mono">FRAME CAPTURE / READY</div>
+              <div class="capture-rec"><i></i> REC <span>00:14:32</span></div>
+            </div>
+            <span class="visual-index mono">B—02</span>
+          </div>
+          <div class="feature-copy">
+            <h3>CLIP<br>WORKFLOW</h3>
+            <p>Keep notable moments organised for review and sharing.</p><span class="feature-arrow">↗</span>
+          </div>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-top mono"><span>MODULE / 003</span><span>03—03</span></div>
+          <div class="feature-visual visual-practice">
+            <div class="practice-ring"><span class="practice-target">+</span><span class="practice-orbit"></span><span
+                class="practice-orbit orbit-inner"></span><span class="practice-dot"></span></div>
+            <div class="practice-readout mono"><span>DRILL 04</span><b>TRACK / RESET</b><span>00:32.08</span></div>
+            <span class="visual-index mono">C—03</span>
+          </div>
+          <div class="feature-copy">
+            <h3>PRACTICE<br>PROTOCOLS</h3>
+            <p>Build repeatable routines with focused drills and measurable goals.</p><span
+              class="feature-arrow">↗</span>
+          </div>
+        </article>
+      </div>
+      <p class="fineprint mono">CONCEPT PREVIEW — MODULES SHOWN ARE DESIGN PLACEHOLDERS.</p>
+    </section> -->
+
+    <section class="manifesto">
+      <div class="manifesto-container">
+        <div class="manifesto-inner reveal">
+          <h2>
+            MASTER YOUR<br>
+            <span class="highlight-skills">SKILLS,</span><br>
+            <span class="highlight-not">NOT</span> <em>THE SOFTWARE.</em>
+          </h2>
+
+          <p class="manifesto-philosophy">
+            Software can reveal the vectors, but it will never build your instincts. Real
+            mastery isn't borrowed—it's forged round after round.
+          </p>
+        </div>
+        <div class="manifesto-art-wrap reveal">
+          <img src="images/ctvst.png" alt="Counter-Strike 2 CT vs T Tactical Battle" class="manifesto-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- CHEAT Codebase Architecture & Technical Features -->
+    <section class="cheat-features section-pad" id="architecture">
+      <div class="section-heading reveal">
+        <div>
+          <h2>VOLD LINE<br><em>CORE ARCHITECTURE.</em></h2>
+        </div>
+        <p class="section-intro">Experience every feature in real-time. Click any capability on the left console to test
+          drive its live tactical overlay and targeting view.</p>
+      </div>
+
+      <!-- TACTICAL INTERACTIVE HUD CONSOLE -->
+      <div class="tactical-console reveal">
+        <!-- Console Left: Feature Navigation Selector -->
+        <div class="console-nav-panel">
+          <div class="console-panel-header mono">
+            <span class="console-tag">// MODULE_SELECT</span>
+            <div class="console-status-led">
+              <span class="led-dot"></span>
+              <span>LIVE_FEED</span>
+            </div>
+          </div>
+          <div class="console-items-list" role="tablist">
+            <!-- Item 1 -->
+            <button class="console-nav-item active" data-feature="aim" type="button">
+              <span class="nav-idx mono">01</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">Smart Aim Helper</span>
+                <span class="nav-sub">AIM ASSIST // FOV CIRCLE</span>
+              </div>
+            </button>
+
+            <!-- Item 2 -->
+            <button class="console-nav-item" data-feature="boxes" type="button">
+              <span class="nav-idx mono">02</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18M9 21V9" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">Enemy Outlines</span>
+                <span class="nav-sub">ESP BOXES // CORNER 2D</span>
+              </div>
+            </button>
+
+            <!-- Item 3 -->
+            <button class="console-nav-item" data-feature="health" type="button">
+              <span class="nav-idx mono">03</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">Health &amp; Status Tags</span>
+                <span class="nav-sub">HP BAR // HEAD INDICATOR</span>
+              </div>
+            </button>
+
+            <!-- Item 4 -->
+            <button class="console-nav-item" data-feature="tracers" type="button">
+              <span class="nav-idx mono">04</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">Target Tracers</span>
+                <span class="nav-sub">SNAPLINES // DISTANCE TRACK</span>
+              </div>
+            </button>
+
+            <!-- Item 5 -->
+            <button class="console-nav-item" data-feature="crosshair" type="button">
+              <span class="nav-idx mono">05</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="7" />
+                  <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">Custom Crosshairs</span>
+                <span class="nav-sub">RETICLES // NO-SCOPE PRO</span>
+              </div>
+            </button>
+
+            <!-- Item 6 -->
+            <button class="console-nav-item" data-feature="menu" type="button">
+              <span class="nav-idx mono">06</span>
+              <div class="nav-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h8M6 16h12" />
+                </svg>
+              </div>
+              <div class="nav-info">
+                <span class="nav-title">In-Game Menu &amp; Keys</span>
+                <span class="nav-sub">PRESS INSERT // REALTIME</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Console Right: Interactive Live Tactical Display Stage -->
+        <div class="console-display-stage">
+          <div class="console-stage-header">
+            <div class="stage-title-wrap">
+              <span class="stage-core-badge mono" id="stageBadge">CORE / 001</span>
+              <h3 class="stage-main-title" id="stageTitle">Smart Aim Helper</h3>
+            </div>
+            <span class="stage-badge-pill mono" id="stageCategory">AIM ASSIST</span>
+          </div>
+
+          <!-- Dynamic Live HUD Simulation Viewport -->
+          <div class="stage-hud-viewport" id="stageViewport">
+            <div class="stage-scanline"></div>
+
+            <!-- Tracer SVG -->
+            <svg class="hud-tracer-svg" id="hudTracerSvg">
+              <line id="hudTracerLine" class="hud-tracer-line" x1="0" y1="0" x2="0" y2="0" />
+            </svg>
+
+            <!-- FOV Circle -->
+            <div class="hud-fov-circle" id="hudFovCircle"></div>
+
+            <!-- Center Crosshair -->
+            <div class="hud-center-crosshair" id="hudCenterCrosshair">
+              <div class="cross-line-h"></div>
+              <div class="cross-line-v"></div>
+              <div class="cross-center-dot"></div>
+            </div>
+
+            <!-- Target Dummy Model -->
+            <div class="hud-target-dummy" id="hudTargetDummy" style="transform: translate(60px, 0px);">
+              <div class="target-model-box">
+                <!-- Head -->
+                <div class="target-head">
+                  <div class="hud-head-dot" id="hudHeadDot"></div>
+                </div>
+                <!-- Torso -->
+                <div class="target-torso"></div>
+                <!-- Legs -->
+                <div class="target-legs">
+                  <span></span><span></span>
+                </div>
+
+                <!-- Overlays -->
+                <div class="hud-esp-box" id="hudEspBox"></div>
+                <div class="hud-health-bar-side" id="hudHealthBar">
+                  <div class="hud-health-fill" id="hudHealthFill"></div>
+                </div>
+                <div class="hud-tag-hp mono" id="hudHpTag">100 HP // DUST II</div>
+              </div>
+            </div>
+
+            <!-- In-game Menu Floating Mockup -->
+            <div class="hud-menu-window" id="hudMenuWindow" style="display: none;">
+              <div class="menu-win-titlebar mono">
+                <span>VOLD LINE // SETTINGS [INSERT]</span>
+                <span>v1.0.2</span>
+              </div>
+              <div class="menu-win-row">
+                <span>Aimbot Smoothing</span>
+                <span style="color: var(--accent); font-weight: bold;">4.2x (Soft)</span>
+              </div>
+              <div class="menu-win-row">
+                <span>Enemy ESP Boxes</span>
+                <div class="menu-win-toggle"></div>
+              </div>
+              <div class="menu-win-row">
+                <span>Health Numbers</span>
+                <div class="menu-win-toggle"></div>
+              </div>
+              <div class="menu-win-row">
+                <span>Target Snaplines</span>
+                <div class="menu-win-toggle"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Description & Tactical Metrics -->
+          <div class="console-details-wrap">
+            <p class="stage-desc-text" id="stageDesc">
+              Automatically moves your aim toward the nearest enemy smoothly and naturally. You control how wide it
+              reaches and how fast it kicks in. Hold left-click to activate it only when you're shooting.
+            </p>
+
+            <div class="stage-metrics-row">
+              <div class="metric-pill">
+                <span class="metric-label" id="metric1Label">FEATURE TYPE</span>
+                <span class="metric-val mono" id="metric1Val">SMOOTH TARGETING</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label" id="metric2Label">ACTIVATION METHOD</span>
+                <span class="metric-val mono" id="metric2Val">HOLD LEFT-CLICK</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label" id="metric3Label">LATENCY IMPACT</span>
+                <span class="metric-val mono" id="metric3Val">0.00 MS ZERO DELAY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="protocol section-pad" id="protocol">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> 05 / SYSTEM STATUS</p>
+          <h2>LIVE STATUS<br><em>&amp; COMPATIBILITY.</em></h2>
+        </div>
+        <p class="section-intro">Real-time tracking of Counter-Strike 2 game updates and software compatibility status.
+        </p>
+      </div>
+
+      <!-- Dual Status Dashboard Grid -->
+      <div class="status-dashboard-grid reveal">
+
+        <!-- Card 1: CS2 Update Status -->
+        <div class="status-card cs2-update-card">
+          <div class="status-card-header mono">
+            <span class="status-title">CS2 GAME UPDATE STATUS</span>
+            <span class="status-pill live-pill" id="cs2BuildPill"><b class="live-dot"></b> LIVE SYNC</span>
+          </div>
+          <div class="status-card-body">
+            <div class="cs2-info-row">
+              <span class="cs2-label mono">LATEST BUILD ID:</span>
+              <span class="cs2-val mono" id="cs2LatestBuild">FETCHING...</span>
+            </div>
+            <div class="cs2-info-row">
+              <span class="cs2-label mono">RELEASE DATE:</span>
+              <span class="cs2-val mono" id="cs2ReleaseDate">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Software Compatibility Status -->
+        <div class="status-card compatibility-card" id="compatibilityCard">
+          <div class="status-card-header mono">
+            <span class="status-title">SOFTWARE COMPATIBILITY</span>
+            <span class="status-pill" id="compatBadgePill">CHECKING</span>
+          </div>
+          <div class="status-card-body">
+            <div class="compat-msg-wrap" id="compatMsgWrap">
+              <span class="compat-icon" id="compatIcon">⏳</span>
+              <p class="compat-text" id="compatText">Checking compatibility with latest CS2 update...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Dynamic Version Logs Container -->
+      <div class="protocol-list" id="versionLogsContainer" style="margin-top: 40px;">
+        <div class="protocol-row reveal">
+          <span class="protocol-no mono">v1.0.2</span>
+          <div>
+            <h3>LOADING RELEASES...</h3>
+            <p>Fetching release logs from GitHub.</p>
+          </div>
+          <span class="protocol-symbol">↗</span>
+        </div>
+      </div>
+
+      <!-- View All Releases Redirect Button -->
+      <div class="view-all-wrapper reveal">
+        <a href="versions.html" class="button-primary view-all-btn">
+          VIEW ALL RELEASES <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="release" id="release">
+      <div class="release-grid"></div>
+      <div class="release-content reveal">
+        <p class="eyebrow"><span class="eyebrow-line"></span> RELEASE CHANNEL / 001</p>
+        <h2>READY WHEN<br><em>YOU ARE.</em></h2>
+        <p>This is a front-end concept. Connect your real app build, documentation, changelog, and support links before
+          publishing.</p>
+        <div class="release-actions"><a class="button-primary" href="https://example.com/download" target="_blank"
+            rel="noreferrer">DOWNLOAD BUILD <span>↗</span></a><a class="text-link" href="#top">BACK TO TOP ↑</a></div>
+        <div class="release-meta mono"><span>VERSION <b>1.0.2 RELEASE</b></span><span>PLATFORM <b>WINDOWS /
+              PLACEHOLDER</b></span><span>STATUS <b><i class="live-dot"></i> CS2 MATCH READY</b></span></div>
+      </div>
+      <div class="release-symbol" aria-hidden="true">
+        <div class="symbol-cross"></div><span>VL—001</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="brand" href="#top"><span
+        class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VOID<span
+          class="brand-light">LINE</span><small>FIELD SYSTEMS / 001</small></span></a>
+    <p class="mono">INDEPENDENT PROJECT · NOT AFFILIATED WITH VALVE</p>
+    <div class="footer-right mono"><span>© 2026 VOIDLINE</span><a href="#top">RETURN ↑</a></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
