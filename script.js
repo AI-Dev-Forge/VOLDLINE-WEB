@@ -1229,7 +1229,7 @@ if (espCanvas) {
   const compatibilityCard = document.getElementById('compatibilityCard');
 
   // ඔබගේ GitHub Raw URL එක මෙහි ලබා දෙන්න (උදා: your-username/repository/main/compatibility.json)
-  const jsonUrl = "https://raw.githubusercontent.com/your-github-username/voidline/main/compatibility.json";
+  const jsonUrl = "https://raw.githubusercontent.com/AI-Dev-Forge/VOLDLINE-WEB/refs/heads/main/compatibility.json";
 
   async function checkCompatibility() {
     try {
