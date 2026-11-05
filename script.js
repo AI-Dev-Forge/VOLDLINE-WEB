@@ -1,3 +1,193 @@
+/* ===== VOIDLINE SPLASH — boot sequence + lock-on mini-game ===== */
+(() => {
+  const root = document.documentElement;
+  const sp = document.getElementById('splash');
+  if (!sp) return;
+
+  // Session check: only show once per browser/tab session
+  try {
+    if (sessionStorage.getItem('voidline_visited')) {
+      sp.remove();
+      root.classList.remove('splash-active');
+      return;
+    }
+    sessionStorage.setItem('voidline_visited', '1');
+  } catch (e) {}
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { sp.remove(); root.classList.remove('splash-active'); return; }
+  root.classList.add('splash-active');
+
+  const $ = (s) => sp.querySelector(s);
+  const cv = $('#sp-canvas'), c = cv.getContext('2d');
+  const pctEl = $('#sp-pct'), bar = $('#sp-bari'), logEl = $('#sp-log'), tagEl = $('#sp-tag'), clock = $('#sp-clock'), wordEl = $('.sp-word');
+  const AC = '212,255,63', AM = '255,170,51', TAU = Math.PI * 2;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const t0 = performance.now();
+  let W, H, left = false, ready = false, raf, last = t0, p = 0, logN = 0, tagged = 0, locked = null, lockSince = 0, lastSpawn = 0;
+  let loaded = document.readyState === 'complete';
+  addEventListener('load', () => { loaded = true; });
+
+  function fit() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  fit(); addEventListener('resize', fit);
+
+  // Wordmark: letters decode from noise, one by one.
+  const WORD = 'VOIDLINE', GLY = '#%&/<>+*0123456789XZ';
+  const chs = [...WORD].map((ch, i) => {
+    const s = document.createElement('span');
+    s.className = 'ch ' + (i < 4 ? 'vd' : 'ln'); s.textContent = ch; s.style.opacity = 0;
+    wordEl.appendChild(s); return s;
+  });
+  let wStart = null;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    chs.forEach((s) => { s.style.width = (s.offsetWidth / parseFloat(getComputedStyle(s).fontSize)) + 'em'; });
+    wStart = performance.now() + 250;
+  });
+
+  // Boot log.
+  const LOG = [[6, 'INIT VOIDLINE CORE'], [26, 'MOUNT TACTICAL OVERLAY'], [48, 'CALIBRATE DUST II MAP'], [72, 'SYNC RELEASE CHANNEL'], [94, 'FIELD SYSTEMS 001']];
+  function addLog(txt, ok = 'OK') {
+    const d = document.createElement('div');
+    d.innerHTML = `<span>&gt; ${txt}</span><i></i><b>${ok}</b>`;
+    logEl.appendChild(d);
+    while (logEl.children.length > 5) logEl.firstChild.remove();
+  }
+
+  // Radar field state.
+  const dust = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), v: rnd(.01, .05), a: rnd(.15, .5) }));
+  let blips = [], bursts = [];
+  const mouse = { x: innerWidth / 2, y: innerHeight * .8, t: 0 };
+  const cross = { x: mouse.x, y: mouse.y };
+
+  const nearest = (x, y, r, now = performance.now()) => {
+    let best = null, bd = r;
+    blips.forEach((b) => { const d = Math.hypot(b.x - x, b.y - y); if (!b.dead && now - b.b > 300 && d < bd) { bd = d; best = b; } });
+    return best;
+  };
+  function tag() {
+    if (!locked) return;
+    locked.dead = true;
+    for (let i = 0; i < 16; i++) { const a = rnd(0, TAU), v = rnd(.05, .3); bursts.push({ x: locked.x, y: locked.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, l: 1 }); }
+    tagEl.textContent = String(++tagged).padStart(2, '0');
+    locked = null;
+  }
+
+  function enter() {
+    if (left) return; left = true;
+    sp.classList.add('is-leaving');
+    setTimeout(() => root.classList.remove('splash-active'), 500);
+    setTimeout(() => { cancelAnimationFrame(raf); sp.remove(); }, 1200);
+  }
+  function finish() {
+    ready = true; p = 100;
+    sp.classList.add('is-ready'); wordEl.classList.add('full');
+    addLog('ALL SYSTEMS', 'READY');
+    setTimeout(enter, 1000);
+  }
+
+  sp.addEventListener('pointermove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.t = performance.now(); });
+  sp.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button')) return;
+    if (ready) return enter();
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.t = performance.now();
+    locked = nearest(mouse.x, mouse.y, 90); tag();
+  });
+  addEventListener('keydown', (e) => { if (ready || e.key === 'Escape') enter(); });
+  $('#sp-skip').addEventListener('click', enter);
+
+  function tick(now) {
+    raf = requestAnimationFrame(tick);
+    const dt = Math.min(now - last, 50); last = now;
+    const el = now - t0, t = el / 1000;
+
+    // Progress: held at 92% until the page has really loaded.
+    if (!ready) {
+      const target = Math.min(el / 2500, 1) * 100, cap = loaded ? 100 : 92;
+      p += (Math.min(target, cap) - p) * (1 - Math.pow(.9, dt / 16.7));
+      if (p > 99.4 && target >= 100 && loaded) finish();
+    }
+    pctEl.textContent = String(Math.floor(p)).padStart(3, '0');
+    bar.style.transform = `scaleX(${p / 100})`;
+    clock.textContent = t.toFixed(2);
+    while (logN < LOG.length && p >= LOG[logN][0]) addLog(LOG[logN++][1]);
+
+    if (wStart) chs.forEach((s, i) => {
+      const e = now - wStart - i * 90; if (e < 0) return;
+      s.style.opacity = 1;
+      if (e < 520) { if (!s._n || now - s._n > 45) { s.textContent = GLY[Math.random() * GLY.length | 0]; s._n = now; } s.classList.add('scr'); }
+      else if (s.classList.contains('scr')) { s.textContent = WORD[i]; s.classList.remove('scr'); }
+    });
+
+    // ---- canvas ----
+    const cx = W / 2, cy = H / 2, R = Math.min(W, H) * .4;
+    c.clearRect(0, 0, W, H);
+    c.lineWidth = 1;
+    [1, .66, .33].forEach((k) => { c.strokeStyle = `rgba(${AC},.07)`; c.beginPath(); c.arc(cx, cy, R * k, 0, TAU); c.stroke(); });
+    for (let k = 0; k < 3; k++) { // expanding pulses
+      const f = ((t * .16) + k / 3) % 1;
+      c.strokeStyle = `rgba(${AC},${.16 * (1 - f)})`; c.beginPath(); c.arc(cx, cy, f * Math.hypot(W, H) * .55, 0, TAU); c.stroke();
+    }
+    c.save(); c.translate(cx, cy); c.rotate(t * .08); c.strokeStyle = `rgba(${AC},.3)`; c.beginPath();
+    for (let i = 0; i < 120; i++) { const a = i / 120 * TAU, l = i % 10 ? 4 : 11; c.moveTo(Math.cos(a) * R, Math.sin(a) * R); c.lineTo(Math.cos(a) * (R + l), Math.sin(a) * (R + l)); }
+    c.stroke(); c.restore();
+    if (c.createConicGradient) { // radar sweep
+      const g = c.createConicGradient(t * 1.1, cx, cy);
+      g.addColorStop(0, `rgba(${AC},0)`); g.addColorStop(.75, `rgba(${AC},0)`); g.addColorStop(1, `rgba(${AC},.22)`);
+      c.fillStyle = g; c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.fill();
+    }
+    dust.forEach((d) => { d.y -= d.v * dt / 1000; if (d.y < 0) d.y = 1; c.fillStyle = `rgba(${AC},${d.a})`; c.fillRect(d.x * W, d.y * H, 1.5, 1.5); });
+
+    // contacts
+    if (blips.length < 6 && now - lastSpawn > 650) {
+      lastSpawn = now;
+      for (let i = 0; i < 10; i++) {
+        const x = rnd(.08, .92) * W, y = rnd(.12, .88) * H;
+        if (Math.abs(y - cy) < H * .17 && Math.abs(x - cx) < W * .34) continue;
+        blips.push({ x, y, b: now, life: rnd(4000, 6500), id: String(rnd(1, 40) | 0).padStart(2, '0'), amber: Math.random() < .4 }); break;
+      }
+    }
+    blips = blips.filter((b) => !b.dead && now - b.b < b.life);
+    c.font = '9px "DM Mono", monospace';
+    blips.forEach((b) => {
+      const age = now - b.b, a = Math.max(0, Math.min(1, age / 300, (b.life - age) / 400)), col = b.amber ? AM : AC, pu = (Math.sin(t * 5 + b.x) + 1) / 2;
+      c.strokeStyle = `rgba(${col},${a * .6})`; c.beginPath(); c.arc(b.x, b.y, 6 + pu * 5, 0, TAU); c.stroke();
+      c.fillStyle = `rgba(${col},${a})`; c.beginPath(); c.arc(b.x, b.y, 2.5, 0, TAU); c.fill();
+      c.fillText((b.amber ? 'T / ' : 'CT / ') + b.id, b.x + 14, b.y + 3);
+    });
+
+    // crosshair: follows the pointer, or plays itself when idle
+    const idle = now - mouse.t > 2500;
+    let tx = mouse.x, ty = mouse.y;
+    if (idle) { const n = nearest(cross.x, cross.y, 1e5, now); if (n) { tx = n.x; ty = n.y; } else { tx = cx + Math.cos(t * .7) * W * .25; ty = cy + Math.sin(t * .9) * H * .3; } }
+    cross.x += (tx - cross.x) * .12; cross.y += (ty - cross.y) * .12;
+    const nb = nearest(cross.x, cross.y, 90, now);
+    if (nb !== locked) { locked = nb; lockSince = now; }
+    if (idle && locked && now - lockSince > 650) tag();
+
+    c.strokeStyle = `rgba(${AC},.95)`; c.lineWidth = 1.2; c.beginPath();
+    const r1 = locked ? 12 : 18, r2 = locked ? 16 : 24;
+    c.arc(cross.x, cross.y, r1, 0, TAU);
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => { c.moveTo(cross.x + dx * r2, cross.y + dy * r2); c.lineTo(cross.x + dx * 34, cross.y + dy * 34); });
+    c.stroke();
+    c.fillStyle = `rgb(${AC})`; c.fillRect(cross.x - 1, cross.y - 1, 2, 2);
+    if (locked) {
+      const b = locked, s = 22 * Math.max(1, 2 - (now - lockSince) / 200), col = b.amber ? AM : AC;
+      c.strokeStyle = `rgb(${col})`; c.lineWidth = 1.5; c.beginPath();
+      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([sx, sy]) => { c.moveTo(b.x + sx * s, b.y + sy * (s - 8)); c.lineTo(b.x + sx * s, b.y + sy * s); c.lineTo(b.x + sx * (s - 8), b.y + sy * s); });
+      c.stroke();
+      c.setLineDash([3, 4]); c.beginPath(); c.moveTo(cross.x, cross.y); c.lineTo(b.x, b.y); c.stroke(); c.setLineDash([]);
+      c.fillStyle = `rgb(${col})`; c.fillText(`LOCK // ${Math.round(Math.hypot(b.x - cx, b.y - cy) / 8)}M`, b.x + s + 8, b.y - s + 4);
+    }
+    bursts = bursts.filter((b) => (b.l -= dt / 600) > 0);
+    bursts.forEach((b) => { b.x += b.vx * dt; b.y += b.vy * dt; c.fillStyle = `rgba(${AC},${b.l})`; c.fillRect(b.x, b.y, 2.5, 2.5); });
+  }
+  raf = requestAnimationFrame(tick);
+})();
+
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Reveal sections as they enter the viewport.

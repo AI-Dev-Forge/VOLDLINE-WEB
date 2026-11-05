@@ -13,9 +13,46 @@
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    (function() {
+      try {
+        if (!sessionStorage.getItem('voidline_visited')) {
+          document.documentElement.classList.add('splash-active');
+          setTimeout(function() {
+            var s = document.getElementById('splash');
+            if (s) {
+              s.remove();
+              document.documentElement.classList.remove('splash-active');
+            }
+          }, 20000);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <noscript><style>#splash{display:none!important}</style></noscript>
 </head>
 
 <body>
+  <div id="splash" role="dialog" aria-label="Loading VOIDLINE">
+    <div class="sp-panel sp-top"></div><div class="sp-panel sp-bot"></div>
+    <canvas id="sp-canvas"></canvas>
+    <div class="sp-ui">
+      <div class="sp-frame"></div>
+      <div class="sp-hud sp-tl">VOIDLINE // FIELD SYSTEMS / 001<br>TAGGED <b id="sp-tag">00</b> · <span class="sp-hint">AIM + CLICK TO TAG CONTACTS</span></div>
+      <div class="sp-hud sp-tr">BUILD 1.0.2 / PREVIEW<br>T+ <span id="sp-clock">0.00</span>S<br><button class="sp-skip" type="button" id="sp-skip">SKIP ›</button></div>
+      <div class="sp-center">
+        <div class="sp-mark"><i></i><i></i><i></i><i></i></div>
+        <div class="sp-word" role="img" aria-label="VOIDLINE"></div>
+        <div class="sp-sub">THE PLAYER IS THE VARIABLE</div>
+      </div>
+      <div class="sp-hud sp-bl"><div class="sp-log" id="sp-log"></div></div>
+      <div class="sp-hud sp-br"><div class="sp-pct"><span id="sp-pct">000</span><small>%</small></div></div>
+      <div class="sp-enter"><span>PRESS ANY KEY · CLICK TO ENTER</span><b></b></div>
+      <div class="sp-bar"><i id="sp-bari"></i></div>
+    </div>
+    <div class="sp-flash"></div>
+  </div>
+
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>

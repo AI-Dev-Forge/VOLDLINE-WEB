@@ -3358,3 +3358,84 @@ h2 em {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   SPLASH SCREEN
+   ========================================================================== */
+html.splash-active { overflow: hidden }
+html.splash-active .hero .reveal { opacity: 0 !important; transform: translateY(24px) !important; transition: none !important }
+.hero-copy .eyebrow.reveal { transition-delay: .15s }
+.hero-title.reveal { transition-delay: .3s }
+.hero-bottom.reveal { transition-delay: .5s }
+
+#splash { position: fixed; inset: 0; z-index: 80; color: var(--text); font-family: var(--mono); overflow: hidden }
+.sp-panel { position: absolute; left: 0; right: 0; height: 50.1%; transition: transform .95s cubic-bezier(.77, 0, .18, 1) .5s; will-change: transform }
+.sp-top { top: 0; background: radial-gradient(ellipse 70% 100% at 50% 100%, rgba(100, 117, 59, .24), transparent 70%), #10110f }
+.sp-bot { bottom: 0; background: radial-gradient(ellipse 70% 100% at 50% 0, rgba(100, 117, 59, .24), transparent 70%), #10110f }
+#splash.is-leaving .sp-top { transform: translateY(-101%) }
+#splash.is-leaving .sp-bot { transform: translateY(101%) }
+#sp-canvas { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .4s }
+.sp-ui { position: absolute; inset: 0; pointer-events: none; transition: opacity .35s }
+#splash.is-leaving .sp-ui, #splash.is-leaving #sp-canvas { opacity: 0 }
+
+.sp-frame { position: absolute; inset: 14px; opacity: .7; background-repeat: no-repeat; background-image:
+  linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid)),
+  linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid)), linear-gradient(var(--acid), var(--acid));
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  background-size: 20px 1px, 1px 20px, 20px 1px, 1px 20px, 20px 1px, 1px 20px, 20px 1px, 1px 20px }
+.sp-hud { position: absolute; font-size: 10px; letter-spacing: .12em; color: #8d9381; line-height: 1.9 }
+.sp-hud b { color: var(--acid); font-weight: 400 }
+.sp-tl { top: 34px; left: 5.4% }
+.sp-tr { top: 34px; right: 5.4%; text-align: right }
+.sp-bl { bottom: 34px; left: 5.4% }
+.sp-br { bottom: 26px; right: 5.4%; text-align: right }
+.sp-skip { pointer-events: auto; background: none; border: 1px solid var(--line); color: #c6c9c0; font: 10px var(--mono); letter-spacing: .1em; padding: 9px 14px; margin-top: 8px; cursor: inherit; transition: color .2s, border-color .2s }
+.sp-skip:hover { color: var(--acid); border-color: var(--acid) }
+
+.sp-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; transition: transform .55s cubic-bezier(.5, 0, .8, .4), filter .55s }
+#splash.is-leaving .sp-center { transform: scale(1.3); filter: blur(10px) }
+.sp-mark { width: 54px; height: 54px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; transform: rotate(-8deg) }
+.sp-mark i { background: var(--acid); clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%); animation: spAssemble .8s cubic-bezier(.2, .8, .2, 1) both }
+.sp-mark i:nth-child(1) { --x: -70px; --y: -70px }
+.sp-mark i:nth-child(2) { --x: 70px; --y: -70px; background: rgba(212, 255, 63, .5); animation-delay: .1s }
+.sp-mark i:nth-child(3) { --x: -70px; --y: 70px; background: rgba(212, 255, 63, .5); animation-delay: .2s }
+.sp-mark i:nth-child(4) { --x: 70px; --y: 70px; animation-delay: .3s }
+@keyframes spAssemble { from { transform: translate(var(--x), var(--y)) scale(.2) rotate(90deg); opacity: 0 } to { transform: none; opacity: 1 } }
+
+.sp-word { display: flex; font: 900 clamp(64px, 16.5vw, 230px)/.82 var(--display); letter-spacing: -.03em; white-space: nowrap; text-shadow: 0 0 60px rgba(212, 255, 63, .12) }
+.sp-word .ch { display: inline-block; text-align: center; transition: color .5s, -webkit-text-stroke-color .5s }
+.sp-word .ln { color: transparent; -webkit-text-stroke: 2px var(--acid) }
+.sp-word .scr { color: var(--acid) }
+.sp-word.full .ln { color: var(--acid); text-shadow: 0 0 40px rgba(212, 255, 63, .55) }
+.sp-sub { display: flex; align-items: center; gap: 16px; font-size: 11px; letter-spacing: .32em; color: #aeb2a8; white-space: nowrap; animation: spIn .8s 1.1s both }
+.sp-sub:before, .sp-sub:after { content: ""; width: clamp(24px, 8vw, 110px); height: 1px; background: var(--acid); opacity: .6 }
+
+.sp-log { font-size: 10px; letter-spacing: .1em; width: min(320px, 70vw); min-height: 82px }
+.sp-log div { display: flex; align-items: baseline; gap: 8px; color: #7f847a; animation: spIn .3s both }
+.sp-log i { flex: 1; border-bottom: 1px dotted rgba(240, 240, 233, .2); transform: translateY(-3px) }
+.sp-log b { color: var(--acid); font-weight: 400 }
+@keyframes spIn { from { opacity: 0; transform: translateX(-8px) } to { opacity: 1; transform: none } }
+
+.sp-pct { font: 800 clamp(54px, 8vw, 104px)/.8 var(--display); letter-spacing: -.02em }
+.sp-pct small { font: 11px var(--mono); color: var(--acid); margin-left: 6px; letter-spacing: .1em }
+.sp-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(240, 240, 233, .08) }
+.sp-bar i { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: var(--acid); box-shadow: 0 0 18px var(--acid) }
+
+.sp-enter { position: absolute; left: 0; right: 0; bottom: 44px; text-align: center; font-size: 11px; letter-spacing: .3em; color: var(--acid); opacity: 0; transition: opacity .4s }
+.sp-enter span { animation: spBlink 1.1s steps(2) infinite }
+.sp-enter b { display: block; height: 1px; width: 140px; margin: 12px auto 0; background: var(--acid); transform-origin: 0 50%; animation: spCount 5s linear both paused }
+.is-ready .sp-enter { opacity: 1 }
+.is-ready .sp-enter b { animation-play-state: running }
+@keyframes spBlink { 50% { opacity: .25 } }
+@keyframes spCount { from { transform: scaleX(1) } to { transform: scaleX(0) } }
+
+.sp-flash { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--acid); box-shadow: 0 0 30px 6px rgba(212, 255, 63, .6); transform: scaleX(0); opacity: 0; pointer-events: none }
+#splash.is-leaving .sp-flash { animation: spFlash .8s .2s ease-out both }
+@keyframes spFlash { 0% { transform: scaleX(0); opacity: 1 } 40% { transform: scaleX(1); opacity: 1 } 100% { transform: scaleX(1); opacity: 0 } }
+
+@media (max-width: 620px) {
+  .sp-bl, .sp-hint { display: none }
+  .sp-hud { font-size: 9px }
+  .sp-enter { bottom: 104px; font-size: 9px }
+  .sp-sub { font-size: 9px; letter-spacing: .2em }
+}
